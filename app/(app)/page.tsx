@@ -1,12 +1,11 @@
 import Link from "next/link"
-import { CheckSquare, Clock, Folder, Users } from "lucide-react"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { CheckSquare, Clock, Folder } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { AppHeader } from "@/components/app/app-header"
 import { Panel } from "@/components/app/panel"
 import { StatusBadge } from "@/components/app/status-badge"
-import { activity, caseLabel, cases, clients, firm, tasks } from "@/lib/data"
+import { activity, caseLabel, cases, firm, tasks } from "@/lib/data"
 
 const stats = [
   { value: cases.filter((c) => c.status !== "closed").length, label: "Open cases" },
@@ -68,40 +67,22 @@ export default function HomePage() {
           </Panel>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1.7fr_1fr]">
-          <Panel title="Recent cases" icon={Folder} href="/cases" linkLabel="All cases">
-            <ul className="divide-y">
-              {cases.slice(0, 5).map((c) => (
-                <li key={c.id}>
-                  <Link href={`/cases/${c.id}`} className="flex items-center gap-4 py-3.5 hover:bg-muted/50">
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-[15px] font-semibold">{c.client.replace(" Ltd.", "")}: {c.title.toLowerCase()}</p>
-                      <p className="text-sm text-muted-foreground">{c.id} · {c.owner}</p>
-                    </div>
-                    <StatusBadge status={c.status} />
-                    <span className="w-44 text-right text-sm text-muted-foreground max-md:hidden">Last activity {c.lastActivity}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Panel>
-
-          <Panel title="Recent clients" icon={Users} href="/clients" linkLabel="All clients">
-            <ul className="divide-y">
-              {clients.map((client) => (
-                <li key={client.id} className="flex items-center gap-3 py-3">
-                  <Avatar className="size-9">
-                    <AvatarFallback className="bg-muted text-xs font-semibold">{client.initials}</AvatarFallback>
-                  </Avatar>
-                  <div className="min-w-0">
-                    <p className="truncate text-[15px] font-medium">{client.name}</p>
-                    <p className="truncate text-sm text-muted-foreground">{client.matter}</p>
+        <Panel title="Recent cases" icon={Folder} href="/cases" linkLabel="All cases">
+          <ul className="divide-y">
+            {cases.slice(0, 5).map((c) => (
+              <li key={c.id}>
+                <Link href={`/cases/${c.id}`} className="flex items-center gap-4 py-3.5 hover:bg-muted/50">
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-[15px] font-semibold">{c.client.replace(" Ltd.", "")}: {c.title.toLowerCase()}</p>
+                    <p className="text-sm text-muted-foreground">{c.id} · {c.owner}</p>
                   </div>
-                </li>
-              ))}
-            </ul>
-          </Panel>
-        </div>
+                  <StatusBadge status={c.status} />
+                  <span className="w-44 text-right text-sm text-muted-foreground max-md:hidden">Last activity {c.lastActivity}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Panel>
       </main>
     </>
   )
