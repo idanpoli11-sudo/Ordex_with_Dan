@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { AppHeader } from "@/components/app/app-header"
 import { Panel } from "@/components/app/panel"
+import { StatCard } from "@/components/app/stat-card"
 import { StatusBadge } from "@/components/app/status-badge"
 import { activity, caseLabel, cases, clients, firm, tasks } from "@/lib/data"
 
@@ -27,10 +28,7 @@ export default function HomePage() {
 
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {stats.map((stat) => (
-            <div key={stat.label} className="rounded-2xl border bg-card p-6">
-              <p className={stat.alert ? "text-3xl font-bold text-destructive" : "text-3xl font-bold"}>{stat.value}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
-            </div>
+            <StatCard key={stat.label} value={stat.value} label={stat.label} tone={stat.alert ? "danger" : "default"} />
           ))}
         </div>
 
